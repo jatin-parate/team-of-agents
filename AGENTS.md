@@ -9,7 +9,7 @@ This repository packages the `tech-lead-orchestrator` skill as a Codex plugin an
 - Keep changes focused on the plugin, its orchestration skill, companion agent definitions, or their documentation.
 - Keep `plugin.json` and `.agents/plugins/marketplace.json` consistent when changing plugin identity or metadata.
 - Do not claim that companion agents are available after plugin installation. They must be copied to the user's Codex agent directory and Codex restarted.
-- Keep agent definitions and skill instructions aligned. In particular, preserve role boundaries, test ownership, and the orchestrator's no-direct-implementation boundary.
+- Keep agent definitions and skill instructions aligned. In particular, preserve role boundaries, test ownership, and the orchestrator's no-direct-implementation boundary. The `documentation-writer` may explore code and edit Markdown documentation only; for documentation work, the orchestrator should use `code-explorer` to identify touchpoints and repository documentation guidance before assigning bounded slices.
 - Do not add machine-specific paths as if they were portable defaults. Clearly identify paths users must configure locally.
 - Do not add dependencies or generated files for this documentation/configuration-only project without a clear need.
 
