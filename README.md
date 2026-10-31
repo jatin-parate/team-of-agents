@@ -24,6 +24,10 @@ cp agents/*.toml ~/.codex/agents/
 
 Restart Codex after copying. The `backend-senior-engineer` and `test-writer` definitions also refer to a separately installed TDD skill at `/Users/jparate/.agents/skills/tdd/SKILL.md`; update those `skills.config` paths to your local TDD skill location before using them elsewhere.
 
+## Working with coding agents
+
+See [`AGENTS.md`](AGENTS.md) for repository-specific guidance and validation steps. Marketplace installation makes the orchestration skill available; it does not install the companion agents. Copy the agent definitions separately, then restart Codex before asking the skill to delegate work.
+
 ## Repository layout
 
 - `plugin.json`: portable plugin manifest.
