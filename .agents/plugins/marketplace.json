@@ -1,0 +1,20 @@
+{
+  "name": "team-of-agents",
+  "interface": {
+    "displayName": "Team of Agents"
+  },
+  "plugins": [
+    {
+      "name": "team-of-agents",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer tools"
+    }
+  ]
+}
