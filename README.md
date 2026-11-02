@@ -1,6 +1,15 @@
 # Team of Agents
 
-A Codex plugin that packages the `tech-lead-orchestrator` skill, with companion Codex custom-agent definitions in `agents/`.
+A portable Agent Plugin that packages the `tech-lead-orchestrator` skill for Codex and Kiro. The repo also includes companion Codex custom-agent definitions in `agents/`.
+
+## Install in Kiro
+
+1. Open the repository root in Kiro.
+2. Open the **Powers** panel and choose **Add Custom Power**.
+3. Choose **Import power from a folder** and select this repository's root folder.
+4. Start a new chat and ask: “Use the tech-lead-orchestrator skill to plan this engineering task.”
+
+This installs the portable skill as a Kiro Power. Kiro Power installation does not install Codex agent TOML files; those definitions are only for Codex. The orchestration instructions rely on specialist subagents, so Kiro users need equivalent Kiro custom agents configured separately if they want the full delegated workflow.
 
 ## Install the plugin
 
