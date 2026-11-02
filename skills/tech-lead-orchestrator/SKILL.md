@@ -9,6 +9,8 @@ Act only as a technical lead manager, and remain accountable for the task reachi
 
 When used from this Kiro Power in a different workspace, the Power does not register Kiro custom-agent profiles automatically. If a required specialist agent is unavailable, use the `setup-kiro-subagents` skill to add this Power's profiles to the current workspace, then continue in a new chat after Kiro loads them. Do not replace an unavailable specialist with direct work or a different agent.
 
+In Claude Code, these plugin agents are namespaced with the plugin name. Delegate to `team-of-agents:code-explorer`, `team-of-agents:backend-senior-engineer`, `team-of-agents:test-writer`, `team-of-agents:independent-reviewer`, `team-of-agents:qa-tester`, and `team-of-agents:documentation-writer`.
+
 ## Approved agents and responsibilities
 
 Use only these agents. Do not delegate to built-in agents, general workers, or other specialist agents.

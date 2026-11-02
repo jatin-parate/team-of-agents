@@ -1,6 +1,19 @@
 # Team of Agents
 
-A portable Agent Plugin that packages the `tech-lead-orchestrator` skill for Codex and Kiro. The repo also includes companion Codex custom-agent definitions in `agents/`.
+A portable Agent Plugin that packages the `tech-lead-orchestrator` skill for Claude Code, Codex, and Kiro. It also includes platform-specific companion agent definitions.
+
+## Install in Claude Code
+
+From a Claude Code terminal session, add the repository marketplace and install the plugin:
+
+```sh
+claude plugin marketplace add jatin-parate/team-of-agents
+claude plugin install team-of-agents@team-of-agents
+```
+
+Start a new session and invoke `/team-of-agents:tech-lead-orchestrator`. The plugin also registers the specialist agents under the `team-of-agents:` namespace; the skill delegates to names such as `team-of-agents:backend-senior-engineer`.
+
+To check the installation, run `claude plugin list`. The installed plugin includes the skill and six Claude Code subagents.
 
 ## Install in Kiro
 
@@ -41,13 +54,14 @@ The Codex agent definitions continue to use `gpt-6-luna`; Kiro's separate profil
 
 ## Working with coding agents
 
-See [`AGENTS.md`](AGENTS.md) for repository-specific guidance and validation steps. Marketplace installation makes the orchestration skill available; it does not install the companion agents. Copy the agent definitions separately, then restart Codex before asking the skill to delegate work.
+See [`AGENTS.md`](AGENTS.md) for repository-specific guidance and validation steps. Claude Code plugin installation includes the skill and subagents. Codex plugin installation provides the skill only; copy the agent TOML files separately and restart Codex. Kiro Power installation also provides the skill only; use `/setup-kiro-subagents` in the target workspace to install the Kiro profiles.
 
 ## Repository layout
 
 - `plugin.json`: portable plugin manifest.
 - `.agents/plugins/marketplace.json`: repo marketplace catalog.
+- `.claude-plugin/`: Claude Code plugin and marketplace manifests.
 - `skills/`: skills bundled into the plugin.
-- `agents/`: companion Codex custom-agent definitions (manual installation).
+- `agents/`: companion Codex TOML and Claude Code Markdown agent definitions.
 - `.kiro/agents/`: Kiro project custom-agent profiles.
 - `skills/setup-kiro-subagents/`: Power skill that installs the specialist profiles into another Kiro workspace.

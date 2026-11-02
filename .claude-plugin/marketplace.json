@@ -1,0 +1,15 @@
+{
+  "name": "team-of-agents",
+  "description": "Engineering workflow plugins from the Team of Agents project.",
+  "owner": {
+    "name": "jatin-parate"
+  },
+  "plugins": [
+    {
+      "name": "team-of-agents",
+      "source": "./",
+      "description": "Engineering orchestration skill and specialist subagents for Claude Code.",
+      "category": "Developer tools"
+    }
+  ]
+}
