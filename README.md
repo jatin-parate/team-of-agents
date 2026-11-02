@@ -4,10 +4,12 @@ A portable Agent Plugin that packages the `tech-lead-orchestrator` skill for Cod
 
 ## Install in Kiro
 
-1. Open the repository root in Kiro.
-2. Open the **Powers** panel and choose **Add Custom Power**.
-3. Choose **Import power from a folder** and select this repository's root folder.
-4. Start a new chat and ask: “Use the tech-lead-orchestrator skill to plan this engineering task.”
+You can import the Power from GitHub or from a local clone:
+
+- **GitHub:** In Kiro, open **Powers** → **Add Custom Power** → **Import power from GitHub**, then enter `https://github.com/jatin-parate/team-of-agents`.
+- **Local clone:** Open the repository root in Kiro, then choose **Powers** → **Add Custom Power** → **Import power from a folder** and select the repository root.
+
+After installation, start a new chat and ask: “Use the tech-lead-orchestrator skill to plan this engineering task.”
 
 This installs the portable skill as a Kiro Power. Kiro Power installation does not install Codex agent TOML files; those definitions are only for Codex. The orchestration instructions rely on specialist subagents, so Kiro users need equivalent Kiro custom agents configured separately if they want the full delegated workflow.
 
