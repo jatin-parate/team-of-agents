@@ -2,13 +2,15 @@
 
 ## Project purpose
 
-This repository packages the `tech-lead-orchestrator` skill as an installable plugin for Claude Code, Codex, and Kiro, with platform-specific companion agent definitions. Claude Code loads plugin agents from `agents/*.md`; Codex agents are TOML; Kiro agents are JSON in `.kiro/agents/`. See `README.md` for each platform's install flow.
+This repository packages the `tech-lead-orchestrator` skill as an installable plugin for Claude Code, Codex, Kiro, and Pi, with platform-specific companion agent definitions. Claude Code loads plugin agents from `agents/*.md`; Codex agents are TOML; Kiro agents are JSON in `.kiro/agents/`; Pi agents are Markdown in `agents/pi/` and are exposed through `package.json`. See `README.md` for each platform's install flow.
 
 ## Working in this repository
 
 - Keep changes focused on the plugin, its orchestration skill, companion agent definitions, or their documentation.
 - Keep `plugin.json` and `.agents/plugins/marketplace.json` consistent when changing plugin identity or metadata.
 - Keep `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` identities consistent. Keep Claude agent Markdown files in `agents/` aligned with the role instructions in the Codex TOML definitions, including the role boundaries and test ownership.
+- Keep the Pi `package.json` `pi.skills` entry aligned with the repository's skill directories. Do not claim Pi package installation registers the other platforms' agent profiles.
+- Keep `agents/pi/*.md` aligned with the role instructions in Codex TOML and Claude Markdown files. `package.json` exposes these profiles through the `pi-subagents` extension; `/skill:setup-pi-agents` installs that extension for the user.
 - Do not claim Codex agents are available after Codex plugin installation alone: the TOML definitions must be copied to the user's Codex agent directory, then Codex restarted. Claude Code plugin installation registers the Markdown agents in `agents/`. Kiro profiles in `.kiro/agents/` load when this repo is open as a workspace; importing the Power alone does not register them. The `setup-kiro-subagents` skill copies bundled profiles into another project's `.kiro/agents/` directory on request.
 - Keep platform model settings separate: Codex agent TOMLs use `gpt-6-luna`; Kiro agent profiles use `claude-haiku-5.5`; Claude Code agents inherit the active session model.
 - Keep the Kiro profiles in `.kiro/agents/` aligned with their bundled copies in `skills/setup-kiro-subagents/references/kiro-agents/` and with the approved roster in `skills/tech-lead-orchestrator/SKILL.md`.
@@ -31,6 +33,7 @@ for path in (
     Path(".agents/plugins/marketplace.json"),
     Path(".claude-plugin/plugin.json"),
     Path(".claude-plugin/marketplace.json"),
+    Path("package.json"),
 ):
     json.loads(path.read_text())
 for path in Path("agents").glob("*.toml"):
@@ -39,6 +42,10 @@ for path in Path(".kiro/agents").glob("*.json"):
     json.loads(path.read_text())
 for path in Path("skills/setup-kiro-subagents/references/kiro-agents").glob("*.json"):
     json.loads(path.read_text())
+pi_manifest = json.loads(Path("package.json").read_text())
+for agent_dir in pi_manifest["pi"]["subagents"]["agents"]:
+    assert Path(agent_dir).is_dir(), f"Missing Pi agent directory: {agent_dir}"
+    assert list(Path(agent_dir).glob("*.md")), f"No Pi agent definitions in: {agent_dir}"
 print("JSON and TOML syntax OK")
 PY
 ```

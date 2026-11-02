@@ -11,6 +11,8 @@ When used from this Kiro Power in a different workspace, the Power does not regi
 
 In Claude Code, these plugin agents are namespaced with the plugin name. Delegate to `team-of-agents:code-explorer`, `team-of-agents:backend-senior-engineer`, `team-of-agents:test-writer`, `team-of-agents:independent-reviewer`, `team-of-agents:qa-tester`, and `team-of-agents:documentation-writer`.
 
+In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi. Pi agent profiles inherit the active session model.
+
 ## Approved agents and responsibilities
 
 Use only these agents. Do not delegate to built-in agents, general workers, or other specialist agents.

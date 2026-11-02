@@ -1,6 +1,6 @@
 # Team of Agents
 
-A portable Agent Plugin that packages the `tech-lead-orchestrator` skill for Claude Code, Codex, and Kiro. It also includes platform-specific companion agent definitions.
+A portable Agent Plugin that packages the `tech-lead-orchestrator` skill for Claude Code, Codex, Kiro, and Pi. It also includes platform-specific companion agent definitions.
 
 ## Install in Claude Code
 
@@ -28,6 +28,20 @@ The Power installs skills, not custom-agent profiles. If you installed the Power
 
 All Kiro profiles use Claude Haiku 5.5. Kiro currently marks Haiku 5.5 experimental and limits availability by plan and region. If it is unavailable, choose an available model in Kiro or change the `model` field in `.kiro/agents/`. See [Kiro model availability](https://kiro.dev/docs/models/available-models/).
 
+## Install in Pi
+
+Install this repository as a Pi package:
+
+```sh
+pi install git:github.com/jatin-parate/team-of-agents
+```
+
+Start a new Pi session and run `/skill:setup-pi-agents`. The setup skill installs the `pi-subagents` package that provides Pi's subagent tool. This repository package then supplies Pi-specific profiles for its six specialist agents. Restart Pi or run `/reload`, then ask Pi to use an agent such as `code-explorer` or `backend-senior-engineer`. You can also invoke `/skill:tech-lead-orchestrator` directly.
+
+This setup requires Pi 1.2.0 or newer.
+
+Pi agent profiles are in `agents/pi/`; the Codex TOML, Claude Code Markdown, and Kiro JSON profiles are not loaded by Pi. Review package sources before installing them because Pi packages can include executable extensions.
+
 ## Install the plugin
 
 From the cloned repository, add its marketplace and install the plugin:
@@ -54,14 +68,16 @@ The Codex agent definitions continue to use `gpt-6-luna`; Kiro's separate profil
 
 ## Working with coding agents
 
-See [`AGENTS.md`](AGENTS.md) for repository-specific guidance and validation steps. Claude Code plugin installation includes the skill and subagents. Codex plugin installation provides the skill only; copy the agent TOML files separately and restart Codex. Kiro Power installation also provides the skill only; use `/setup-kiro-subagents` in the target workspace to install the Kiro profiles.
+See [`AGENTS.md`](AGENTS.md) for repository-specific guidance and validation steps. Claude Code plugin installation includes the skill and subagents. Codex plugin installation provides the skill only; copy the agent TOML files separately and restart Codex. Kiro Power installation also provides the skill only; use `/setup-kiro-subagents` in the target workspace to install the Kiro profiles. Pi package installation provides its skill and Pi-specific profiles; use `/skill:setup-pi-agents` to install Pi's subagent tool.
 
 ## Repository layout
 
 - `plugin.json`: portable plugin manifest.
 - `.agents/plugins/marketplace.json`: repo marketplace catalog.
 - `.claude-plugin/`: Claude Code plugin and marketplace manifests.
+- `package.json`: Pi package manifest, exposing the skills directory.
 - `skills/`: skills bundled into the plugin.
 - `agents/`: companion Codex TOML and Claude Code Markdown agent definitions.
+- `agents/pi/`: Pi-specific subagent profiles.
 - `.kiro/agents/`: Kiro project custom-agent profiles.
 - `skills/setup-kiro-subagents/`: Power skill that installs the specialist profiles into another Kiro workspace.
