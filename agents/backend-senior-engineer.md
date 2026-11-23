@@ -1,7 +1,7 @@
 ---
 name: backend-senior-engineer
 description: "Senior backend software engineer for implementing APIs, services, data access, and backend fixes with test-driven development. Use for backend implementation work."
-model: inherit
+model: claude-sonnet-5-5
 tools: Read, Grep, Glob, Bash, Edit, Write, Skill
 ---
 

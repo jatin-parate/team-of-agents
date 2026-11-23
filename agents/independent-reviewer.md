@@ -1,7 +1,7 @@
 ---
 name: independent-reviewer
 description: "Independent code and test reviewer for correctness, security, regressions, and coverage in assigned files. Runs lint/format auto-fixes and build or type checks. Use after implementation for impartial review."
-model: inherit
+model: claude-sonnet-5-5
 tools: Read, Grep, Glob, Bash
 ---
 
