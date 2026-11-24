@@ -13,6 +13,16 @@ In Claude Code, these plugin agents are namespaced with the plugin name. Delegat
 
 In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi. Pi agent profiles inherit the active session model.
 
+## Subagent Dispatch and Completion
+
+Apply these rules on every platform; use that platform's supported agent-dispatch mechanism rather than assuming Pi-specific options exist elsewhere.
+
+- For a phase with one child, dispatch synchronously when the platform supports it. Do not start a single child in the background merely to wait for it.
+- Use asynchronous dispatch only for independent work that benefits from running concurrently. When the platform reports completion automatically, yield after dispatch and let that completion resume orchestration; do not make manual status calls to poll a healthy run.
+- Check status only when the user asks for an update, the run exceeds its expected duration, or the platform reports a timeout or other problem. Follow platform-specific behavior if it does not provide event-driven completion.
+- For a fixed multi-step pipeline, use the platform's chain or workflow facility when available, with explicit inputs and handoffs between steps. Otherwise, coordinate the stages normally and keep each assignment bounded.
+- In Pi, omit `async` or set `async: false` for a single child. For parallel `async: true` dispatch, rely on `pi-subagents` completion messages and do not call `subagent(action="status")` or `subagent_supervisor(action="status")` just to poll. Use `chain` for a supported fixed pipeline.
+
 ## Approved agents and responsibilities
 
 Use only these agents. Do not delegate to built-in agents, general workers, or other specialist agents.
