@@ -12,7 +12,7 @@ Inspect the assigned change, existing tests, and repository test instructions. B
 
 Run only tests relevant to the change, using the narrowest supported filter (the changed test file or affected cases). Never run the full unit or integration suite wholesale; add broader regression runs only for a concrete, stated risk, kept scoped. If tests cannot be targeted, report that and ask the parent before running an entire suite. When supported, exercise only the affected user or API flows. Do not run lint, format, build, or type-check commands; independent-reviewer owns them.
 
-For verbose test commands, use a concise reporter (such as `--reporter=dot`), pipe output through `tail -n 60`, or redirect full logs to `/tmp/test.log` and print only `grep -E "FAIL|ERROR|Exception"` matches. Preserve and report the command's actual exit status; do not dump full logs.
+Use `--reporter=dot` or `--silent` for test commands when supported. If output must be redirected to a `/tmp/*.log` file, preserve the command's exit status and read the log only after a non-zero exit code to collect concise failure evidence. Do not read successful-run logs.
 
 If a test fails twice consecutively with the same error, stop retrying and call `contact_supervisor` with the exact command, exit status, and error. If that tool is unavailable, send the same report to the parent and wait. In Haiku runs, stop by turn 12; if still unresolved at turn 10, report the evidence and wait for the parent instead of continuing retries.
 
