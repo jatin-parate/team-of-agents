@@ -2,6 +2,7 @@
 name: code-explorer
 description: "Read-only codebase explorer that traces execution paths and prepares compact context maps when requested. May write only the exact context-map file assigned by the parent."
 model: claude-haiku-5-5
+effort: low
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch, Write
 ---
 

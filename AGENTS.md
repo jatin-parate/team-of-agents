@@ -18,6 +18,12 @@ This repository packages the `tech-lead-orchestrator` skill as an installable pl
 - Do not add machine-specific paths as if they were portable defaults. Clearly identify paths users must configure locally.
 - Do not add dependencies or generated files for this documentation/configuration-only project without a clear need.
 
+## Subagent Orchestration and Token Rules
+
+- **Synchronous by default:** When dispatching a single subagent, use synchronous execution if the platform supports it. Do not launch one child asynchronously only to wait for it.
+- **Avoid status polling:** For parallel asynchronous work, yield after dispatch when the platform provides automatic completion notifications. Do not call status actions to poll a healthy run; check status only when the user asks for an update or a timeout or other problem occurs. Follow platform-specific behavior when automatic completion is unavailable.
+- **Bounded discovery escape hatch:** When read-only discovery is scoped to a subdirectory, the explorer may trace upstream writers outside that scope only as needed to verify data or schema provenance. Keep the exception read-only and narrowly tied to the task.
+
 ## Validation
 
 There is no application build or test suite in this repository. For changes to manifests or agent definitions, validate JSON and TOML syntax with the standard library:
