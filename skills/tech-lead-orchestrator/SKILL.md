@@ -13,7 +13,7 @@ In Claude Code, these plugin agents are namespaced with the plugin name. Delegat
 
 In Codex, the plugin provides this skill but does not register agent profiles. Install the TOML profiles in Codex's agent directory and restart Codex before delegating. In GitHub Copilot, use the host's available agent delegation interface and only invoke specialist profiles that are registered in the current workspace. Across hosts, do not assume Pi tool names; if the required profiles are unavailable, ask the user to enable them rather than doing their task work directly.
 
-In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. Pass `options: { acceptance: "off" }` on every launch of a `team-of-agents` profile to disable implicit child-report attestation overhead. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi.
+In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. Pass `options: { acceptance: { level: "none", reason: "Disable implicit attestation for this team-of-agents child." } }` on every launch of a `team-of-agents` profile to disable implicit child-report attestation overhead. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi.
 
 ## Subagent Dispatch and Completion
 
