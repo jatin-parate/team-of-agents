@@ -1,7 +1,7 @@
 ---
 name: test-writer
 description: "Global test-authoring agent for unit and integration tests. Writes tests for assigned tasks, runs relevant test suites, and reports coverage and status without changing production code."
-model: claude-haiku-5-5
+model: claude-sonnet-5-5
 tools: Read, Grep, Glob, Bash, Edit, Write, Skill
 ---
 
