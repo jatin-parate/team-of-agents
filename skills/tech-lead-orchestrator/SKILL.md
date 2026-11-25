@@ -13,7 +13,7 @@ In Claude Code, these plugin agents are namespaced with the plugin name. Delegat
 
 In Codex, the plugin provides this skill but does not register agent profiles. Install the TOML profiles in Codex's agent directory and restart Codex before delegating. In GitHub Copilot, use the host's available agent delegation interface and only invoke specialist profiles that are registered in the current workspace. Across hosts, do not assume Pi tool names; if the required profiles are unavailable, ask the user to enable them rather than doing their task work directly.
 
-In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi.
+In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. Pass `options: { acceptance: "off" }` on every launch of a `team-of-agents` profile to disable implicit child-report attestation overhead. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi.
 
 ## Subagent Dispatch and Completion
 
@@ -23,7 +23,7 @@ Apply these rules on every platform; use that platform's supported agent-dispatc
 - Use asynchronous dispatch only for independent work that benefits from running concurrently. When the platform reports completion automatically, yield after dispatch and let that completion resume orchestration; do not make manual status calls to poll a healthy run.
 - Check status only when the user asks for an update, the run exceeds its expected duration, or the platform reports a timeout or other problem. Follow platform-specific behavior if it does not provide event-driven completion.
 - For a fixed multi-step pipeline, use the platform's chain or workflow facility when available, with explicit inputs and handoffs between steps. Otherwise, coordinate the stages normally and keep each assignment bounded.
-- In Pi, omit `async` or set `async: false` for a single child. For parallel `async: true` dispatch, rely on `pi-subagents` completion messages and do not call `subagent(action="status")` or `subagent_supervisor(action="status")` just to poll. Use `chain` for a supported fixed pipeline.
+- In Pi, ALWAYS pass `async: false` explicitly for a single sequential child (omitting `async` detaches in the background). For parallel `async: true` dispatch, rely on `pi-subagents` completion messages and do not call `subagent(action="status")` or `subagent_supervisor(action="status")` just to poll. Use `chain` for a supported fixed pipeline.
 
 ## Approved agents and responsibilities
 
@@ -31,7 +31,7 @@ Use only these agents. Do not delegate to built-in agents, general workers, or o
 
 - `backend-senior-engineer`: sole production-code implementation agent. It must follow the global TDD skill on every implementation task and may write unit tests only. It must not write integration tests.
 - `test-writer`: global test-authoring agent. It can write unit tests, integration tests, or both when assigned; it never changes production code. For a code implementation item, the backend engineer owns unit tests in its TDD cycle and test-writer owns integration tests. For standalone test work, assign the requested test types to test-writer.
-- `code-explorer`: read-only repository discovery and research; writes only its assigned context map.
+- `code-explorer`: read-only repository discovery and research; writes only its assigned context map. It has no shell/`bash` tool (`Read, Grep, Glob, Write` only); never assign `git diff`, `git log`, or CLI inspection to it.
 - `documentation-writer`: explores an assigned feature slice in depth and creates or updates Markdown documentation only, following repository documentation guidance supplied by the orchestrator.
 - `independent-reviewer`: independent review of production code plus all unit and integration test changes for correctness, security, regressions, and coverage gaps. It owns lint, format (auto-fix enabled), build, and type-check commands on the assigned change; it does not make manual fixes. Give it the base branch to compare against when the user or repository names one; it skips the minimal-diff check otherwise. Do not provide the implementer's conclusions.
 - `qa-tester`: independently reviews both unit and integration tests for behavior coverage, meaningful assertions, correct seams, edge cases, and regression gaps, then runs the relevant tests only. It does not run lint, format, build, or type checks (the reviewer owns them), implement product code, or edit tests.
