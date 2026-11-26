@@ -15,6 +15,8 @@ Start a new session and invoke `/team-of-agents:tech-lead-orchestrator`. The plu
 
 To check the installation, run `claude plugin list`. The installed plugin includes the skill and six Claude Code subagents.
 
+When enabled, the plugin's `SubagentStart` hook reinforces the five-turn and `node_modules` limits for `code-explorer`; the agent's `maxTurns` setting enforces the turn cap.
+
 ## Install in Kiro
 
 You can import the Power from GitHub or from a local clone:
@@ -41,6 +43,23 @@ Start a new Pi session and run `/skill:setup-pi-agents`. The setup skill install
 This setup requires Pi 1.2.0 or newer.
 
 Pi agent profiles are in `agents/pi/`; the Codex TOML, Claude Code Markdown, and Kiro JSON profiles are not loaded by Pi. Review package sources before installing them because Pi packages can include executable extensions.
+
+### Pi assistant telemetry
+
+The local helper combines assistant message events from a parent session JSONL and its immediate child logs matching `*/run-0/session.jsonl`. It keeps the first record for each top-level event `id`, orders the output by timestamp, and writes JSONL to stdout.
+
+Add an alias to your shell configuration, replacing the path with your local clone:
+
+```sh
+export TEAM_OF_AGENTS_DIR="/path/to/team-of-agents"
+alias pi-assistant-telemetry='python3 "$TEAM_OF_AGENTS_DIR/scripts/pi-assistant-telemetry.py"'
+```
+
+Run it with the parent JSONL path and the directory that contains its child run directories:
+
+```sh
+pi-assistant-telemetry /path/to/parent-session.jsonl /path/to/parent-session-directory
+```
 
 ## Install the plugin
 
@@ -75,7 +94,9 @@ See [`AGENTS.md`](AGENTS.md) for repository-specific guidance and validation ste
 - `plugin.json`: portable plugin manifest.
 - `.agents/plugins/marketplace.json`: repo marketplace catalog.
 - `.claude-plugin/`: Claude Code plugin and marketplace manifests.
+- `hooks/`: Claude Code plugin lifecycle hooks.
 - `package.json`: Pi package manifest, exposing the skills directory.
+- `scripts/`: Claude hook and local Pi telemetry helpers.
 - `skills/`: skills bundled into the plugin.
 - `agents/`: companion Codex TOML and Claude Code Markdown agent definitions.
 - `agents/pi/`: Pi-specific subagent profiles.
