@@ -10,10 +10,22 @@ Act only as a technical lead manager, and remain accountable for the task reachi
 When used from this Kiro Power in a different workspace, the Power does not register Kiro custom-agent profiles automatically. If a required specialist agent is unavailable, use the `setup-kiro-subagents` skill to add this Power's profiles to the current workspace, then continue in a new chat after Kiro loads them. Do not replace an unavailable specialist with direct work or a different agent.
 
 In Claude Code, these plugin agents are namespaced with the plugin name. Delegate to `team-of-agents:code-explorer`, `team-of-agents:backend-senior-engineer`, `team-of-agents:test-writer`, `team-of-agents:independent-reviewer`, `team-of-agents:qa-tester`, and `team-of-agents:documentation-writer`.
+In Pi, use the bare agent names `code-explorer`, `backend-senior-engineer`, `test-writer`, `independent-reviewer`, `qa-tester`, and `documentation-writer`.
 
 In Codex, the plugin provides this skill but does not register agent profiles. Install the TOML profiles in Codex's agent directory and restart Codex before delegating. In GitHub Copilot, use the host's available agent delegation interface and only invoke specialist profiles that are registered in the current workspace. Across hosts, do not assume Pi tool names; if the required profiles are unavailable, ask the user to enable them rather than doing their task work directly.
 
-In Pi, use the `subagent` tool from `pi-subagents` and pass the exact profile name in `agent` with a bounded `task`. For independent assignments, use the tool's `tasks` list. Pass `options: { acceptance: { level: "none", reason: "Disable implicit attestation for this team-of-agents child." } }` on every launch of a `team-of-agents` profile to disable implicit child-report attestation overhead. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi.
+In Pi, use the `subagent` tool from `pi-subagents@0.90.0`. Emit at most ONE `subagent` tool call per assistant message. For parallel independent work (e.g., independent-reviewer + qa-tester), use:
+
+```js
+subagent({
+   workflow: "parallel",
+   async: false,
+   options: { acceptance: { level: "none", reason: "Disable implicit attestation." } },
+   args: { tasks: [{ agent: "independent-reviewer", label: "...", task: "..." }, { agent: "qa-tester", label: "...", task: "..." }] }
+})
+```
+
+Never place `options` inside `args.tasks[]`. The Pi profiles ship with this repository's Pi package; if they are unavailable, run `/skill:setup-pi-agents`, then reload Pi.
 
 ## Subagent Dispatch and Completion
 
