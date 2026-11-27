@@ -6,6 +6,7 @@
   "pi": {
     "skills": [
       "./skills/tech-lead-orchestrator",
+      "./skills/tech-lead-planner",
       "./skills/setup-pi-agents"
     ],
     "subagents": {
