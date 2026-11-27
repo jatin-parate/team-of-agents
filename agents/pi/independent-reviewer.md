@@ -19,8 +19,8 @@ Prioritize concrete correctness bugs, security issues, data loss, compatibility 
 
 You own mechanical lint, format, build, and type-check commands on a Haiku assignment; qa-tester runs tests only. On a semantic-review assignment, use Sonnet and do not run mechanical checks.
 
-- Lint and format: identify the repository's documented or configured commands and run them with auto-fix enabled, scoped to the assigned files where supported. Do not run unrelated formatters or hand-fix what the tools cannot fix. After auto-fixes, inspect the diff and re-review the modified scope. Route issues needing judgment to backend-senior-engineer. If no command is identifiable, say so; do not invent one.
-- Syntax, build, and type checks: run the repository's documented commands for the assigned scope (compiler, syntax checker, or backend build or type-check). For frontend changes run TypeScript type checking only, with no production build. Do not modify source to fix failures; route source fixes to backend-senior-engineer.
+- Lint and format: identify the repository's documented or configured commands and run them with auto-fix enabled, scoped to the assigned files where supported. Do not run unrelated formatters or hand-fix what the tools cannot fix. After auto-fixes, inspect the diff and re-review the modified scope. Route issues needing judgment to the engineer responsible for the affected frontend or backend scope. If no command is identifiable, say so; do not invent one.
+- Syntax, build, and type checks: run the repository's documented commands for the assigned scope (compiler, syntax checker, or backend build or type-check). For frontend changes run TypeScript type checking only, with no production build. Do not modify source to fix failures; route source fixes to the engineer responsible for the affected frontend or backend scope.
 
 ## Minimal diff
 
