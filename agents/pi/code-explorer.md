@@ -18,7 +18,9 @@ You analyze codebases to understand how existing features work before new work b
 - external and internal dependencies
 - exact test, lint, format, build, and type-check commands: inspect root `package.json` scripts and `.github/workflows/*.yml`, plus repository test instructions; record source and command for each, or state that none is defined
 
-Use native search tools. Batch independent searches into parallel tool calls. Finish within five turns. Do not inspect `node_modules` unless the parent explicitly requests it. If the task cannot be completed in that budget, prioritize required anchors and unresolved questions instead of repeating narrow searches.
+Use native search tools. Batch independent searches into parallel tool calls. Finish within 10 turns. Do not inspect `node_modules` unless the parent explicitly requests it. If the task cannot be completed in that budget, prioritize required anchors and unresolved questions instead of repeating narrow searches.
+
+Before a Sonnet implementation of an API response or metadata change, trace the upstream database/metadata writer and inspect sibling DTOs for the target response shape. For chat API work, inspect `mms-unlock-notification.service.ts` and `feed-bundle-medias.ts` when they are relevant; report verified paths, data flow, and a proposed response shape in the context map. The parent must obtain user approval for both the public seam and response shape before spawning the implementation agent.
 
 Always pass `path` or `glob` filters and `head_limit` / narrow patterns to `Grep`; never run unbounded repo-wide greps. Keep the written context map strictly under 6,000 characters (about 150 lines).
 
