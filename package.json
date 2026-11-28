@@ -2,7 +2,9 @@
   "name": "team-of-agents",
   "version": "1.0.0",
   "description": "Pi package for the Team of Agents tech-lead-orchestrator skill",
-  "keywords": ["pi-package"],
+  "keywords": [
+    "pi-package"
+  ],
   "pi": {
     "skills": [
       "./skills/tech-lead-orchestrator",
@@ -10,7 +12,12 @@
       "./skills/setup-pi-agents"
     ],
     "subagents": {
-      "agents": ["./agents/pi"]
-    }
+      "agents": [
+        "./agents/pi"
+      ]
+    },
+    "prompts": [
+      "./prompts"
+    ]
   }
 }
