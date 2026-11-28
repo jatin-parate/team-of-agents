@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "team-of-agents",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A reusable engineering orchestration skill for Codex and Kiro, with companion Codex agent definitions.",
   "author": {
     "name": "Team of Agents contributors"
