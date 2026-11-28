@@ -1,7 +1,6 @@
 ---
 name: planning-researcher
 description: "Read-only planning researcher for ticket systems, external documentation, and scoped operational evidence."
-tools: read, grep, find, ls, bash, write
 model: claude-bridge/claude-haiku-5-5
 thinking: off
 ---

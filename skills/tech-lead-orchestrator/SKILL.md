@@ -31,11 +31,11 @@ Never place `options` inside `args.tasks[]`. The Pi profiles ship with this repo
 
 Apply these rules on every platform; use that platform's supported agent-dispatch mechanism rather than assuming Pi-specific options exist elsewhere.
 
-- For a phase with one child, dispatch synchronously when the platform supports it. Do not start a single child in the background merely to wait for it.
-- Use asynchronous dispatch only for independent work that benefits from running concurrently. When the platform reports completion automatically, yield after dispatch and let that completion resume orchestration; do not make manual status calls to poll a healthy run.
+- For a phase with one child, dispatch synchronously when the platform supports it. Do not start a single child in the background merely to wait for it. Exception: a Pi `planning-researcher` that needs an ambient MCP adapter or extension must run in the background as described in `tech-lead-planner`.
+- Use asynchronous dispatch only for independent work that benefits from running concurrently, except the Pi research-tool requirement above. When the platform reports completion automatically, yield after dispatch and let that completion resume orchestration; do not make manual status calls to poll a healthy run.
 - Check status only when the user asks for an update, the run exceeds its expected duration, or the platform reports a timeout or other problem. Follow platform-specific behavior if it does not provide event-driven completion.
 - For a fixed multi-step pipeline, use the platform's chain or workflow facility when available, with explicit inputs and handoffs between steps. Otherwise, coordinate the stages normally and keep each assignment bounded.
-- In Pi, ALWAYS pass `async: false` explicitly for a single sequential child (omitting `async` detaches in the background). For parallel `async: true` dispatch, rely on `pi-subagents` completion messages and do not call `subagent(action="status")` or `subagent_supervisor(action="status")` just to poll. Use `chain` for a supported fixed pipeline.
+- In Pi, pass `async: false` explicitly for a single sequential child, except the MCP or extension-dependent researcher described above (omitting `async` detaches in the background). For `async: true` dispatch, rely on `pi-subagents` completion messages and do not call `subagent(action="status")` or `subagent_supervisor(action="status")` just to poll. Use `chain` for a supported fixed pipeline.
 
 ## Approved agents and responsibilities
 

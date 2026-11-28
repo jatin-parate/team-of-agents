@@ -1,7 +1,7 @@
 {
   "name": "team-of-agents",
   "description": "Engineering orchestration skill and specialist subagents for Claude Code.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Team of Agents contributors"
   }
